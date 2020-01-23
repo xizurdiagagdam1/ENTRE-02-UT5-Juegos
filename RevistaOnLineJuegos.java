@@ -9,7 +9,7 @@ import java.util.Arrays;
  * 
  * Un objeto de esta clase guarda en un array los juegos 
  *
- * @author -
+ * @Xavier Izurdiaga
  */
 public class RevistaOnLineJuegos 
 {
@@ -53,7 +53,7 @@ public class RevistaOnLineJuegos
             String aux = juego.getTitulo();
             int posmin = 0;
             for(int a = 0; a < total; a ++){
-                if(juegos[posmin].getTitulo().compareTo(juegos[a].getTitulo()) < 0){
+                if(juegos[a].getTitulo().compareTo(aux) < 0){
                     posmin = a;
                 }
             }
@@ -61,6 +61,7 @@ public class RevistaOnLineJuegos
                 juegos[a + 1] = juegos[a];
             }
             juegos[posmin] = juego;
+            total ++;
         }
     }
      
@@ -129,11 +130,11 @@ public class RevistaOnLineJuegos
         int borrados = 0;
         for(int a = total; a > total; a --){
             if(juegos[a].getGenero().equals(genero)){
-                // System.arraycopy
+                System.arraycopy(juegos, a + 1, juegos, a, total - a - 1);
                 borrados ++;
             }
         }
-        return 0;
+        return borrados;
     }
     
     /**

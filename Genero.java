@@ -7,5 +7,5 @@
  */
 public enum Genero
 {
-    AVENTURAS, DEPORTES, ESTRATEGIA, ROL
+    AVENTURA, DEPORTE, ESTRATEGIA, ROL
 }

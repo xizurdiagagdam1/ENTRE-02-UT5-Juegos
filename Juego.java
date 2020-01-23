@@ -98,7 +98,7 @@ public class Juego {
 
     public static void main(String[] args) {
         Juego juego1 = new Juego(
-                "Steep: deportes: 2016  : 0:0:0:0: 0: 0:0:0:12:  10");
+                "Steep: deporte: 2016  : 0:0:0:0: 0: 0:0:0:12:  10");
         System.out.println(juego1.toString());
 
         Juego juego2 = new Juego(
