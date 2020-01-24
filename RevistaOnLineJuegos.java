@@ -32,7 +32,7 @@ public class RevistaOnLineJuegos
      * Devuelve true si el array está completo, false en otro caso
      */
     public boolean estaCompleta() {
-        return total == nombre.length();
+        return total == juegos.length;
     }
 
     /**
@@ -47,35 +47,46 @@ public class RevistaOnLineJuegos
      *    
      */
     public void add(Juego juego) {
-        if(estaCompleta()){
-            System.out.println("La revista esta completa");
+        if(total == 0){
+            juegos[0] = juego;
+            total ++;
+        }else if(estaCompleta()){
+            System.out.println("La lista esta completa"); 
+        }else if(existeJuego(juego.getTitulo()) >= 0){
+            System.out.println("El juego ya esta en la lista");
         }else{
-            String aux = juego.getTitulo();
-            int posmin = 0;
-            for(int a = 0; a < total; a ++){
-                if(juegos[a].getTitulo().compareTo(aux) < 0){
-                    posmin = a;
-                }
+            int a = 0;
+            for(int b = total; b >= a; b --){
+                juegos[b + 1] = juegos[b];
+                a = b;
             }
-            for(int a = total; a > posmin; a--){
-                juegos[a + 1] = juegos[a];
-            }
-            juegos[posmin] = juego;
+            juegos[a] = juego;
             total ++;
         }
     }
-     
+
     /**
      * Efectúa una búsqueda en el array del juego cuyo titulo se
-     * recibe como parámetro. Es ndiferente mayúsculas y minúsculas
+     * recibe como parámetro. Es indiferente mayúsculas y minúsculas
      * Si existe el juego devuelve su posición, si no existe devuelve -1
      */
     public int existeJuego(String titulo) {
-        String[] aux = new String[total];
-        int a = Arrays.binarySearch(aux, titulo);
-        return a;
+        if(total < 1){
+            return -1;
+        }
+        String[] nombres = new String[total];
+        for(int a = 0; a < total; a ++){
+            nombres[a] = juegos[a].getTitulo().toLowerCase();
+        }
+        for(int a = total - 1; a >= 0; a --){
+            String aux = nombres[a];
+            if(aux.compareToIgnoreCase(titulo) == 0){
+                return -1;
+            }
+        }
+        return Arrays.binarySearch(nombres, titulo);
     }
-    
+
     /**
      * Representación textual de la revista
      * Utiliza StringBuilder como clase de apoyo.
@@ -103,7 +114,7 @@ public class RevistaOnLineJuegos
             juegos[aux].puntuar(puntuacion);
         }
     }
-    
+
     /**
      * Devuelve un array con los nombres de los juegos 
      * con una valoración media mayor a la indicada  
@@ -136,7 +147,7 @@ public class RevistaOnLineJuegos
         }
         return borrados;
     }
-    
+
     /**
      * Lee de un fichero de texto los datos de los juegos
      * con ayuda de un objeto de la  clase Scanner
